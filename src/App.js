@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoginPage from "./Pages/LoginPage";
 import UsersList from "./Pages/UsersList";
 import HomePage from "./Pages/HomePage";
-// import Footer from "./Components/Footer";
 function App() {
+  const [user, setUser] = useState(false);
+
+  useEffect(()=>{
+    const u =localStorage.getItem("Auth");
+    u && JSON.parse(u) ? setUser(true) : setUser(false);
+  },[])
+
+  useEffect(()=>{
+    localStorage.setItem("Auth",user);
+  },[user]);
   return (
     <>
       <ToastContainer
@@ -21,11 +30,18 @@ function App() {
         pauseOnHover
       />
       <Routes>
-        <Route path="/register" element={<HomePage />} />
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/users" element={<UsersList />} />
+        {!user && (
+          <Route
+            exact
+            path="/"
+            element={<LoginPage authenticate={() => setUser(true)} />}
+          />
+        )}
+        <Route exact path="/register" element={<HomePage />} />
+        {user && <Route exact path="/users" element={<UsersList logout={() => setUser(false)} />} />}
+        <Route exact path="*" element={<LoginPage />} />
       </Routes>
-      {/* <Footer /> */}
+      
     </>
   );
 }

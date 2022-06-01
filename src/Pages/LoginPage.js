@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const LoginPage = () => {
+const LoginPage = ({authenticate}) => {
+
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -10,8 +12,11 @@ const LoginPage = () => {
   const users = JSON.parse(localStorage.getItem('users'));
 
 function login(){
+  // localStorage.setItem("token",email)
   toast.success("Login Success");
   navigate("/users");
+  authenticate();
+
 }
 // function loginfailed (){
 
@@ -19,6 +24,7 @@ function login(){
   
   //submit function
   const handleSubmit = (e) => {
+
     
     e.preventDefault();
     for(let i=0;i<users.length;i++){

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-// import { FaAlignCenter } from "react-icons/fa";
 import { toast } from "react-toastify";
-import Header from "../Components/Header";
 import { useNavigate } from "react-router-dom";
-// import UersList from "./UsersList";
+import { FaHouseUser } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -15,33 +14,11 @@ const HomePage = () => {
   // const [img, setimg] = useState(profilePIcDefault);
   const [checked, setchecked] = useState(false);
 
-  // const [users, setUsers] = useState([]);
-  // //form submit handler
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //     let user={
-  //       name,
-  //       email,
-  //       password,
-  //       gender,
-  //       checked,
-  //     }
-  //     setUsers([...users,user])
-  //     // navigate("/users");
-  //     setname("");
-  //     setemail("");
-  //     setpassword("");
-  //     setgender("");
-  //     setchecked(false);
-
-  // };
-
-  // useEffect(()=>{
-  //   localStorage.setItem('users',JSON.stringify(users));
-  // },[users]);
-
-  function handleSubmit() {
-    if (name === "") {
+  
+  function handleSubmit({logout}) {
+    if (name === "" || email === "" || password === "" || gender === "") {
+      toast.error("please full fill form");
+    } else if (name === ""){
       toast.error("Name Is Required");
     } else if (email === "") {
       toast.error("Email Is Required");
@@ -72,7 +49,24 @@ const HomePage = () => {
 
   return (
     <>
-      <Header />
+      <div>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div className="container">
+          <span className="navbar-brand">
+            {" "}
+            <FaHouseUser /> User Management System{" "}
+          </span>
+
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <Link className="nav-link " to="/">
+                LogIn
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
       <form className="container content mt-4" autoComplete="off">
         <h5> 📝 Apply for Registration...</h5>
         <div className="row border p-4">
@@ -175,7 +169,6 @@ const HomePage = () => {
           {/* col-md-6 ends */}
         </div>
       </form>
-      {/* <UersList /> */}
     </>
   );
 };
