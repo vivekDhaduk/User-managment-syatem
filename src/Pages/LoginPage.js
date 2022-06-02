@@ -67,12 +67,13 @@ function login(){
           </div>
           <div className="form__signupLink mb-3">
             <p>
-              Don't Have An Account? <Link to="/register">Signup ! </Link>
+              Don't Have An Account? <Link to="/register"> Signup ! </Link>
             </p>
           </div>
-          <button type="submit" className="form__button" onClick={handleSubmit}>
+          <button type="submit" className="glow-on-hover" onClick={handleSubmit}>
             Login
           </button>
+          
         </form>
       </div>
     </>
